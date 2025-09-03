@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pre Test
+        id: pre-test
         run: exit 0
 
       - name: Check previous
@@ -19,8 +20,10 @@ jobs:
           echo "$failed_steps"
           if echo "$failed_steps" | grep -q "failure"; then
             echo "prev_ok=true" >> $GITHUB_OUTPUT
+            echo "pass"
           else
             echo "prev_ok=false" >> $GITHUB_OUTPUT
+            echo "fail"
           fi
 
       - name: Fail Test
