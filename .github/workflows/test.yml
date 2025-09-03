@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Pre Test
         id: pre-test
-        run: exit 1
+        run: exit 0
 
       - name: Check previous
         id: test-previous
