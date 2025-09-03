@@ -31,7 +31,7 @@ jobs:
         run: exit 1
 
       - name: Pass Test
-        if: steps.test-previous.outputs.prev_ok == 'true'
+        if: failure() || steps.test-previous.outputs.prev_ok == 'true'
         run: exit 0
 
       - name: Run Anyway
