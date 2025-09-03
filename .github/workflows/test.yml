@@ -6,11 +6,29 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Pass Test
+        run: exit 0
+
+      - name: Check previous
+        id: test-previous
+        if: always()
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: |
+          export failed_steps=$(echo "$STEPS_CONTEXT" | jq -r 'keys[] as $k | select(.[$k].outcome=="failure") | "\($k): \(.[$k].outcome)"')
+          echo "$failed_steps"
+          if echo "$failed_steps" | grep -q "failure"; then
+            echo "prev_ok=true" >> $GITHUB_OUTPUT
+          else
+            echo "prev_ok=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Fail Test
+        if: ${{ steps.test-previous.outputs.prev_ok }}
         run: exit 1
 
       - name: Pass Test
-        if: always()
+        if: ${{ steps.test-previous.outputs.prev_ok }}
         run: exit 0
 
       - name: Run Anyway
