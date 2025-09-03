@@ -10,9 +10,9 @@ jobs:
         run: exit 1
 
       - name: Pass Test
-        if: ${{ failed() or success() }}
+        if: always()
         run: exit 0
 
       - name: Run Anyway
-        if: ${{ failed() or success() }}
+        if: always()
         run: echo "Hello"
