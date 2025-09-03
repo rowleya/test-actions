@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Pre Test
         id: pre-test
-        run: exit 0
+        run: exit 1
 
       - name: Check previous
         id: test-previous
@@ -31,7 +31,7 @@ jobs:
         run: exit 1
 
       - name: Pass Test
-        if: failure() || steps.test-previous.outputs.prev_ok == 'true'
+        if: always() && steps.test-previous.outputs.prev_ok == 'true'
         run: exit 0
 
       - name: Run Anyway
