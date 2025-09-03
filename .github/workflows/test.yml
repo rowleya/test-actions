@@ -19,11 +19,11 @@ jobs:
           export failed_steps=$(echo "$STEPS_CONTEXT" | jq -r 'keys[] as $k | select(.[$k].outcome=="failure") | "\($k): \(.[$k].outcome)"')
           echo "$failed_steps"
           if echo "$failed_steps" | grep -q "failure"; then
-            echo "prev_ok=true" >> $GITHUB_OUTPUT
-            echo "pass"
-          else
             echo "prev_ok=false" >> $GITHUB_OUTPUT
             echo "fail"
+          else
+            echo "prev_ok=true" >> $GITHUB_OUTPUT
+            echo "pass"
           fi
 
       - name: Fail Test
