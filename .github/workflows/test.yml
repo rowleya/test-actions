@@ -36,4 +36,4 @@ jobs:
 
       - name: Run Anyway
         if: always()
-        run: echo "::notice::Hello"
+        run: echo "::notice::Hello ${{ steps.test-previous.outputs.prev_ok }}"
