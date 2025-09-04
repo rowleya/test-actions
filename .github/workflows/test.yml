@@ -36,4 +36,4 @@ jobs:
 
       - name: Run Anyway
         if: always()
-        run: core.notice('Hello'')
+        run: core.notice('Hello')
